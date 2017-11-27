@@ -3,7 +3,7 @@
 pipeline {
 	agent any
 	tools{
-	   maven 'apache-maven-3.5.2'
+	   maven 'devops_maven'
 	}
 	stages{
 		stage('build')  {
