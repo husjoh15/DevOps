@@ -9,8 +9,8 @@ pipeline {
 				label 'slave'
 			}
 			tools{
-				jdk "JDK 8"
-				maven "apache-maven-3-5-2"
+				jdk "devops_jdk"
+				maven "devops_maven"
 			}
 			steps{
 				sh('mvn clean')
