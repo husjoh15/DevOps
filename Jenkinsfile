@@ -4,7 +4,7 @@ pipeline {
 	agent any
 
 	stages{
-		stage('mvn clean') {
+		stage('mvn v') {
 			agent{
 				label 'slave'
 			}
@@ -12,12 +12,15 @@ pipeline {
 				jdk "devops_jdk"
 				maven "devops_maven"
 			}
+			steps{
+				sh('mvn --version')
+			}
 		
 		}
 		stage('build')  {
 			steps{
 		   		sh('echo "Hello World"') 
-				sh('mvn --version')
+			
 			}
 		
 		}		
