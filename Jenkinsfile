@@ -5,9 +5,6 @@ pipeline {
 
 	stages{
 		stage('mvn v') {
-			agent{
-				label 'slave'
-			}
 			tools{
 				maven "devops_maven"
 			}
