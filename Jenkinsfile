@@ -9,7 +9,6 @@ pipeline {
 				label 'slave'
 			}
 			tools{
-				jdk "devops_jdk"
 				maven "devops_maven"
 			}
 			steps{
