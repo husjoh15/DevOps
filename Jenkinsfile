@@ -12,9 +12,7 @@ pipeline {
 				jdk "devops_jdk"
 				maven "devops_maven"
 			}
-			steps{
-				sh('mvn clean')
-			}
+		
 		}
 		stage('build')  {
 			steps{
