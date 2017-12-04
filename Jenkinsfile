@@ -1,9 +1,17 @@
 #!groovy
 
 pipeline {
-	agent any
+	agent {
+		docker { image '3.5.2-jdk-8' }
+	}
 
 	stages{
+		stage('test')
+		{
+			steps{
+				sh 'mvn --version'
+			}
+		}
 		stage('mvn clean') {
 			tools{
 				jdk "devops_jdk"
@@ -23,6 +31,7 @@ pipeline {
 		   		sh('mvn install') 
 			}
 		
-		}		
+		}	
+			
 	}		
 }
