@@ -28,8 +28,8 @@ pipeline {
 		}
 		stage('mvn install')  {
 			tools{
-				jdk "devops_jdk"
-				maven "devops_maven"
+				jdk "jdk"
+				maven "maven"
 			}
 			steps{
 		   		sh('mvn install') 
