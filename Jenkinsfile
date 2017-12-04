@@ -1,7 +1,5 @@
 pipeline {
-	agent {
-		docker {image '3.5.2-jdk-9'}
-	}
+	agent any
 	stages{
 		stage('mvn clean') {
 			tools{
