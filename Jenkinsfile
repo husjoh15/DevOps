@@ -33,20 +33,22 @@ pipeline {
 		stage('deploy'){
 			steps{
 		    		sh('gcloud auth login')
-                   		sh('gcloud config set compute/zone europe-west3-a')
-                    		sh('gcloud config set project westerdals-185117')
+                   		sh('gcloud config set compute/zone {zone}')
+                    		sh('gcloud config set project {project}')
                     		sh('gcloud docker -- push <IMAGE>')
-                    		sh('gcloud container clusters get-credentials westerdals-k8s2-cluster --zone europe-west3-a --project  westerdals 185117')
+                    		sh('gcloud container clusters get-credentials {cluster} --zone {zone} --project  {project}')
                     		sh('kubectl run project --image=<IMAGE>')
 			}
 		}
-		stage('clean')
+		stage('clean')  {
 			tools{
 				jdk "jdk"
 				maven "maven"
 			}
 			steps{
 				sh('mvn clean')
-			}	
+			}
+		}	
 	}		
+
 }
