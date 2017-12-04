@@ -4,20 +4,23 @@ pipeline {
 	agent any
 
 	stages{
-		stage('mvn v') {
+		stage('mvn clean') {
 			tools{
 				jdk "devops_jdk"
 				maven "devops_maven"
 			}
 			steps{
-				sh('mvn --version')
+				sh('mvn clean')
 			}
 		
 		}
-		stage('build')  {
+		stage('mvn install')  {
+			tools{
+				jdk "devops_jdk"
+				maven "devops_maven"
+			}
 			steps{
-		   		sh('echo "Hello World"') 
-			
+		   		sh('mvn install') 
 			}
 		
 		}		
