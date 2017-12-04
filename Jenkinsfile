@@ -8,14 +8,18 @@ pipeline {
 	stages{
 		stage('test')
 		{
+			tools{
+				jdk "jdk"
+				maven "maven"
+			}
 			steps{
 				sh 'mvn --version'
 			}
 		}
 		stage('mvn clean') {
 			tools{
-				jdk "devops_jdk"
-				maven "devops_maven"
+				jdk "jdk"
+				maven "maven"
 			}
 			steps{
 				sh('mvn clean')
