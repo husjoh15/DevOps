@@ -1,9 +1,7 @@
 #!groovy
 
 pipeline {
-	agent {
-		docker { image '3.5.2-jdk-8' }
-	}
+	agent any
 
 	stages{
 		stage('test')
