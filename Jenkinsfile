@@ -24,9 +24,7 @@ pipeline {
 		
 		stage('build image') {
 			steps{
-				dir('project'){
-				  sh('docker build -t <TAG>')
-				}
+				sh('docker build -t <TAG>')
 			}
 		}
 		
