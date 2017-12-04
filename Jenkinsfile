@@ -1,7 +1,5 @@
 pipeline {
-	agent {
-		docker {image '3.5.2-jdk-9'}
-	}
+	agent any
 	stages{
 		stage('mvn clean') {
 			tools{
@@ -22,6 +20,30 @@ pipeline {
 		   		sh('mvn install') 
 			}
 		
+		}	
+		stage('build image') {
+			steps{
+				sh('docker build -t <TAG>')
+			}
 		}
-	}		
+		stage('deploy'){
+			steps{
+		    		sh('gcloud auth login')
+                   		sh('gcloud config set compute/zone {zone}')
+                    		sh('gcloud config set project {project}')
+                    		sh('gcloud docker -- push <IMAGE>')
+                    		sh('gcloud container clusters get-credentials {cluster} --zone {zone} --project  {project}')
+                    		sh('kubectl run project --image=<IMAGE>')
+			}
+		}
+		stage('clean') {
+			tools{
+				jdk "jdk"
+				maven "maven"
+			}
+			steps{
+				sh('mvn clean')
+			}	
+		}
+	}
 }
