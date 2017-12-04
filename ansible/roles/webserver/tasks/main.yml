@@ -1,0 +1,61 @@
+---
+- name: Install Java
+  apt: 
+    name: default-jre
+    update_cache: yes 
+    state: installed
+
+- name: Install tomcat 8
+  apt: 
+    name: tomcat8
+    state: latest
+
+- name: Ensure tomcat is running
+  service:
+    name: tomcat8
+    state: started
+
+
+- name: Remove old app
+  file: 
+    path: "/var/lib/tomcat8/webapps/{{ item }}"
+    state: absent
+  with_items:
+   - "apptest.war"
+   - "apptest"
+
+- name: Deploy app
+  copy:
+    src: apptest.war
+    dest: /var/lib/tomcat8/webapps
+
+- name: Restart tomcat service
+  service:
+    name: tomcat8
+    state: restarted
+
+- name: Install nginx
+  apt: 
+   name: nginx
+   state: latest
+
+- name: Configure nginx
+  copy:
+   src: tomcat
+   dest: /etc/nginx/sites-available/
+
+- name: Create symlink to enable config
+  file:
+    src: /etc/nginx/sites-available/tomcat
+    dest: /etc/nginx/sites-enabled/tomcat
+    state: link
+
+- name: Remove default nginx files
+  file:
+   path: /etc/nginx/sites-enabled/default
+   state: absent
+
+- name: Restart nginx service
+  service:
+   name: nginx
+   state: restarted
